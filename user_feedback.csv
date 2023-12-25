@@ -1,0 +1,7 @@
+Timestamp,Feedback_Type,Feedback_Text,Rating
+2023-12-03 17:52:16,suggestion,Add more code comments,5
+2023-12-03 17:52:16,bug,There is an error in the login function,Not provided
+2023-12-03 17:53:53,Compliment,Great job on the analytics section!,5
+2023-12-03 17:53:53,Suggestion,Include more examples in documentation.,Not provided
+2023-12-03 17:55:26,Compliment,The AI responded accurately.,5
+2023-12-03 17:55:26,Bug,There was an error in data processing.,Unrated
