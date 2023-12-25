@@ -83,8 +83,8 @@ tools = [
                     },
                     "action": {
                         "type": "string",
-                        "description": "execute: save and execute code, save: simply save, view: view the contents of the code",
-                        "enum": ["execute","save","view"]
+                        "description": "execute: save and execute code, view: view the contents of the code",
+                        "enum": ["execute","view"]
                     }
                 },
                 "required": ["file_name","code", "action"]
@@ -205,7 +205,7 @@ def write_code(code, file_name, action):
 
     except Exception as e:
         # Return error message
-        raise e
+        return e
 
 def modify_behavior(modification, old_prompt):
     tweak_system_prompt = "Based on the recommended prompt_tweak, output a JSON object with a \"new_prompt\" field that is a slightly modified old_prompt that implements that tweak. Provide the complete (not cut off) \"new_prompt\"."
@@ -286,7 +286,7 @@ def main_loop():
             if model_message:
                 function_history.append(f"Model Message: {model_message}")
             if user_input:
-                function_history.append(f"User Input: {user_input}") 
+                function_history.append(f"User Message: {user_input}") 
             loops = 0
             model_message = ""
 
@@ -322,7 +322,7 @@ def main_loop():
                     
                     
                     code_result = write_code(code = code, file_name = file_name ,action = action)
-                    function_response = f"Action: {action}\nFile Name: {file_name}\n\nCode Results: {code_result[0:10000]}"
+                    function_response = f"Action: {action}\nFile Name: {file_name}\n\nCode Contents: {code}\n\nCode Results: {code_result[0:2000]}"
                 except Exception as e:
                     function_response = f"Error in tool: {e}"
 
