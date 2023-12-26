@@ -75,6 +75,17 @@ def generate_and_implement_code(template_code):
 
                 # Extract just the body of the function
                 new_function_body = implemented_function.value.dumps()
+                
+                # Remove 1 indentation (4 spaces or 1 tab) from each line
+                def remove_one_indentation(line, spaces_per_indent=4):
+                    if line.startswith(" " * spaces_per_indent):
+                        return line[spaces_per_indent:]
+                    elif line.startswith("\t"):
+                        return line[1:]
+                    return line
+
+                new_function_body = "\n".join(remove_one_indentation(line) for line in new_function_body.splitlines())
+
                 new_function_body = new_function_body.strip()
 
                 # # Display the new function body for debugging

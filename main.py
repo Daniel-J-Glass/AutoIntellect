@@ -62,7 +62,7 @@ Tools Purpose:
 Behavior tips:
 1. Do not repeat successful actions.
 2. Notes are your thought process, so ALWAYS use "take_notes" (in parallel with other tools) to track previous actions, current parallel actions, future actions, goals, etc.
-3. Notes should be in shorthand, information should be as dense as possible for you to understand while remaining sparse.
+3. Notes should be in shorthand, information should be as dense as possible for you to understand while remaining sparse. The structure of the notes should be used to your advantage.
 4. You should make your plans keeping your current capabilities in mind.
 5. "modify_behavior" should be used to improve your thought process, informed from notes, the user, and tool usage results all combined.
 6. Do not use the "write_code" tool in place of the other tools available to you, or your inherent abilities.
@@ -86,21 +86,21 @@ tools = [
             "parameters": {
                 "type": "object",
                 "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "Complete, self-contained Python code with extremely detailed comments (INCLUDE TODO COMMENTS) and docstrings. Driven by main()"
+                    },
                     "file_name": {
                         "type": "string",
                         "description": "The .py file name to reference for later use. Like: \"<file_name>.py\""
                     },
-                    "code": {
-                        "type": "string",
-                        "description": "Complete, self-contained Python code with extremely detailed comments (\"TODO\" comments are very important) and docstrings. Driven by main()"
-                    },
                     "action": {
                         "type": "string",
-                        "description": "execute: save and execute code, view: view the contents of the code",
+                        "description": "execute: save and execute code, view: view the contents of a file",
                         "enum": ["execute","view"]
                     }
                 },
-                "required": ["file_name","code", "action"]
+                "required": ["code", "file_name", "action"]
             }
         }
     },
@@ -297,7 +297,7 @@ def main_loop():
             print(model_message)
             user_input = input("Please provide directions or simply press enter to continue...\n")
             if model_message:
-                function_history.append({"Model Message": model_message})
+                function_history.append({"Assistant Message": model_message})
             if user_input:
                 function_history.append({"User Message": user_input}) 
             loops = 0
